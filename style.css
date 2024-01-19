@@ -24,8 +24,14 @@ input {
     text-align: center;
     font-family: 'Rubik', sans-serif;
     margin: 10px 0;
+    outline:none;
 }
-
+input:active{
+    outline:#AC485A;
+}
+button:hover{
+    background-color: #e04561;
+}
 button {
     color: #FDFDFD;
     background-color: #AC485A;
