@@ -2,20 +2,32 @@
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
 import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
-
 const appSettings = {
-    databaseURL : "https://playground-84180-default-rtdb.europe-west1.firebasedatabase.app/"
+    databaseURL : "https://realtime-database-9c889-default-rtdb.firebaseio.com/"
 }
 const app = initializeApp(appSettings)
 const database = getDatabase(app)
-const moviesInDB = ref(database,'movies')
+const shoppingListInDB = ref(database,'shoppingList')
 
 
 const inputField = document.getElementById('input-el')
 const addButton = document.getElementById('add-button')
+const shoppingListEl = document.getElementById('shopping-list')
 
+
+function addListItem(item) {
+     shoppingListEl.innerHTML += `<li>${item}</li>`
+}
+function clearInputField() {
+      inputField.value = ''
+}
 addButton.addEventListener('click', () => {
     let inputValue = inputField.value
-    push(moviesInDB, inputValue)
-    console.log(`${inputValue} added to database`)
+
+    push(shoppingListInDB, inputValue) 
+
+    clearInputField()
+
+    addListItem(inputValue)
+  
 })
