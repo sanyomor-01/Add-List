@@ -13,14 +13,20 @@ const shoppingListInDB = ref(database,'shoppingList')
 const inputField = document.getElementById('input-el')
 const addButton = document.getElementById('add-button')
 const shoppingListEl = document.getElementById('shopping-list')
+const errorEl  = document.getElementById("error-message")
 
 //adds item to the database
 addButton.addEventListener('click', () => {
     let inputValue = inputField.value
-
-    push(shoppingListInDB, inputValue) 
+    if (inputValue.trim() === ""){
+       errorEl.textContent ="type something to add"
+    }else{
+            push(shoppingListInDB, inputValue) 
 
     clearInputField()
+    }
+
+
 })
 
 //Updates Item in real time

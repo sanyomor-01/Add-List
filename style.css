@@ -67,3 +67,6 @@ ul li:hover{
     background-color: #fffdf8;
     cursor: pointer;
 }
+#erro-message{
+    color: #f762b2;
+}
