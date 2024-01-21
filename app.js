@@ -14,18 +14,32 @@ const inputField = document.getElementById('input-el')
 const addButton = document.getElementById('add-button')
 const shoppingListEl = document.getElementById('shopping-list')
 
+//adds item to the database
+addButton.addEventListener('click', () => {
+    let inputValue = inputField.value
+
+    push(shoppingListInDB, inputValue) 
+
+    clearInputField()
+})
+
 //Updates Item in real time
 onValue(shoppingListInDB, function(snapshot) {
-    clearSnapshot()
-    let itemsArray = Object.entries(snapshot.val())
+    if(snapshot.exists()){
+        let itemsArray = Object.entries(snapshot.val())
+        clearSnapshot()
 
-    for(let i = 0; i<itemsArray.length; i++) { 
+        for(let i = 0; i<itemsArray.length; i++) { 
 
-        let currentItem = itemsArray[i]
-        let currentItemID =currentItem[0]
-        let currentItemValue = currentItem[1]
+            let currentItem = itemsArray[i]
+            let currentItemID =currentItem[0]
+            let currentItemValue = currentItem[1]
 
-        addListItem(currentItem)
+            addListItem(currentItem)
+        }
+    }
+     else{
+        shoppingListEl.innerHTML = 'No item here...yet'
     }
 })
 
@@ -44,6 +58,8 @@ function addListItem(items) {
     })
 }
 
+
+
 function clearInputField() {
       inputField.value = ''
 }
@@ -51,12 +67,3 @@ function clearInputField() {
 function clearSnapshot() {
     shoppingListEl.innerHTML =""
 }
-
-//adds item to the database
-addButton.addEventListener('click', () => {
-    let inputValue = inputField.value
-
-    push(shoppingListInDB, inputValue) 
-
-    clearInputField()
-})
