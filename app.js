@@ -14,22 +14,35 @@ const inputField = document.getElementById('input-el')
 const addButton = document.getElementById('add-button')
 const shoppingListEl = document.getElementById('shopping-list')
 
-function addListItem(itemValue) {
-     shoppingListEl.innerHTML += `<li>${itemValue}</li>`
+function addListItem(items) {
+    let itemID = items[0]
+    let itemValue = items[1]
+
+    let listEl = document.createElement('li')
+    listEl.textContent= itemValue
+    shoppingListEl.append(listEl)
 }
+
 function clearInputField() {
       inputField.value = ''
 }
+
 function clearSnapshot() {
     shoppingListEl.innerHTML =""
 }
+
 //Updates Item in real time
 onValue(shoppingListInDB, function(snapshot) {
     clearSnapshot()
-    let itemsArray = Object.values(snapshot.val())
+    let itemsArray = Object.entries(snapshot.val())
 
     for(let i = 0; i<itemsArray.length; i++) { 
-        addListItem(itemsArray[i])
+
+        let currentItem = itemsArray[i]
+        let currentItemID =currentItem[0]
+        let currentItemValue = currentItem[1]
+
+        addListItem(currentItem)
     }
 })
 
